@@ -1,12 +1,13 @@
 // Sunday Music service worker: caches the app shell only.
 // It never touches the Apps Script API (script.google.com / googleusercontent.com)
 // or any cross-origin request, so sheet data is always live.
-const CACHE = 'sunday-music-v4';
+const CACHE = 'sunday-music-v5';
 const SHELL = [
   './',
   './index.html',
   './manifest.webmanifest',
   './icons/apple-touch-icon.png',
+  './icons/home-icon-v5.png',
   './icons/icon-192.png',
   './icons/icon-512.png',
   './icons/favicon-32.png'
