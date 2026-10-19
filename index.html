@@ -180,6 +180,7 @@ summary .peek{display:block;font-size:15px;color:var(--muted);font-family:"Sourc
   <div class="tip" id="tip" role="note" hidden>
     <button class="x" type="button" id="tipClose" aria-label="Dismiss tip">×</button>
     <div id="tipIos"><strong>Make it an app:</strong> tap Share&nbsp;<svg class="share" viewBox="0 0 24 24" aria-label="Share icon" role="img"><path d="M12 3v12M7.5 7.5 12 3l4.5 4.5" fill="none" stroke="#1F6FE5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 10H6a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-9a1 1 0 0 0-1-1h-2" fill="none" stroke="#1F6FE5" stroke-width="2" stroke-linecap="round"/></svg>, then <strong>Add to Home Screen</strong>.</div>
+    <div id="tipOther" hidden><strong>Make it an app:</strong> open this page in <strong>Safari</strong> first (copy the link, paste it in Safari), then tap Share and <strong>Add to Home Screen</strong>.</div>
     <div id="tipAndroid" hidden><strong>Make it an app:</strong> add Sunday Music to your home screen.
       <div><button class="install" type="button" id="installBtn">Install app</button></div></div>
   </div>
@@ -666,9 +667,9 @@ const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbzOx1DgzzR3NkeHp4YmC
   const standalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
   const ua = navigator.userAgent;
   const isIOS = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
-  const isIOSSafari = isIOS && /Safari/.test(ua) && !/CriOS|FxiOS|EdgiOS|OPiOS|GSA\//.test(ua);
+  const isIOSSafari = isIOS && /Safari/.test(ua) && /Version\//.test(ua) && !/CriOS|FxiOS|EdgiOS|OPiOS|GSA\/|FBAN|FBAV|Instagram|Line\//.test(ua);
   let dismissed = false; try { dismissed = localStorage.getItem('smf_tip') === '1'; } catch (x) {}
-  if (!standalone && !dismissed && (isIOSSafari || DEMO === 'tip') && DEMO !== 'clean') $('#tip').hidden = false;
+  if (!standalone && !dismissed && (isIOS || DEMO === 'tip') && DEMO !== 'clean') { if (isIOS && !isIOSSafari) { $('#tipIos').hidden = true; $('#tipOther').hidden = false; } $('#tip').hidden = false; }
   let deferredPrompt = null;
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault(); deferredPrompt = e;
