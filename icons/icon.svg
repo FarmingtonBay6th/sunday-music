@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="38%" r="75%">
+      <stop offset="0" stop-color="#2A5E48"/>
+      <stop offset="1" stop-color="#163A2B"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#E6C977"/>
+      <stop offset="1" stop-color="#B8913A"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" fill="url(#bg)"/>
+  <!-- thin gold frame like a hymnbook cover -->
+  <rect x="44" y="44" width="424" height="424" rx="64" fill="none" stroke="#C9A54C" stroke-opacity=".55" stroke-width="5"/>
+  <!-- beamed eighth notes -->
+  <g fill="url(#gold)">
+    <ellipse cx="196" cy="296" rx="40" ry="30" transform="rotate(-22 196 296)"/>
+    <ellipse cx="330" cy="268" rx="40" ry="30" transform="rotate(-22 330 268)"/>
+    <rect x="223" y="128" width="13" height="166"/>
+    <rect x="357" y="100" width="13" height="166"/>
+    <polygon points="223,128 370,100 370,140 223,168"/>
+  </g>
+  <!-- open book -->
+  <g fill="none" stroke="url(#gold)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M256 412 C 214 384, 160 378, 110 388 L 110 350"/>
+    <path d="M256 412 C 298 384, 352 378, 402 388 L 402 350"/>
+    <path d="M256 412 L 256 372"/>
+    <path d="M256 384 C 218 360, 172 356, 134 362" stroke-width="7" stroke-opacity=".7"/>
+    <path d="M256 384 C 294 360, 340 356, 378 362" stroke-width="7" stroke-opacity=".7"/>
+  </g>
+</svg>

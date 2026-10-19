@@ -1,0 +1,691 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sunday Music · Farmington Bay 6th Ward</title>
+<meta name="description" content="Submit Sunday sacrament music in under a minute.">
+<meta name="theme-color" content="#1F4D3A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Sunday Music">
+<meta name="format-detection" content="telephone=no">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#1F4D3A; --green-d:#18402F; --green-dd:#123224; --green-soft:#E7F0EA;
+  --gold:#C9A54C; --gold-l:#E3C878; --gold-d:#8C6D22; --cream:#FBF8F0; --card:#FFFFFF;
+  --ink:#1D2A24; --muted:#5C6B63; --line:#DDD6C4; --need:#B5861E; --err:#A3302A;
+  --radius:18px;
+  --sat:env(safe-area-inset-top,0px); --sab:env(safe-area-inset-bottom,0px);
+  --sal:env(safe-area-inset-left,0px); --sar:env(safe-area-inset-right,0px);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;background:var(--green-d);color:var(--ink);
+  font:18px/1.45 "Source Sans 3",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  overflow-x:hidden;-webkit-tap-highlight-color:transparent}
+.serif{font-family:"Cormorant Garamond",Georgia,"Times New Roman",serif}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- header ---------- */
+header{background:radial-gradient(120% 90% at 50% 0%,#2A5E48 0%,var(--green) 45%,var(--green-d) 100%);
+  color:var(--gold-l);text-align:center;
+  padding:calc(var(--sat) + 16px) calc(var(--sar) + 20px) 20px calc(var(--sal) + 20px);
+  position:relative}
+header::after{content:"";position:absolute;left:24px;right:24px;bottom:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.7}
+.mark{width:40px;height:40px;margin:0 auto 4px;display:block}
+h1{margin:0;font-family:"Cormorant Garamond",Georgia,serif;font-weight:700;font-size:40px;line-height:1.05;
+  letter-spacing:.5px;color:var(--gold-l);text-shadow:0 1px 0 rgba(0,0,0,.25)}
+.ward{margin:4px 0 0;font-family:"Cormorant Garamond",Georgia,serif;font-size:21px;font-weight:600;color:#EFE3BD;letter-spacing:.6px}
+.quick{display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:4px 12px;border:1px solid rgba(201,165,76,.55);
+  border-radius:999px;font-size:15px;color:#F3E7C2;letter-spacing:.2px}
+
+main{max-width:560px;margin:0 auto;padding:18px calc(var(--sar) + 14px) calc(var(--sab) + 120px) calc(var(--sal) + 14px)}
+.card{background:var(--cream);border-radius:var(--radius);padding:18px 16px;margin:0 0 14px;
+  box-shadow:0 1px 0 rgba(255,255,255,.6) inset,0 8px 24px rgba(0,0,0,.18);border:1px solid rgba(201,165,76,.35)}
+.card h2{margin:0 0 4px;font-family:"Cormorant Garamond",Georgia,serif;font-size:26px;line-height:1.15;color:var(--green)}
+.card .sub{margin:0 0 12px;color:var(--muted);font-size:16px}
+
+/* ---------- install tip ---------- */
+.tip{position:relative;background:linear-gradient(#FFFDF6,#FBF4E0);border:2px solid var(--gold);border-radius:var(--radius);
+  padding:14px 52px 14px 16px;margin:0 0 14px;box-shadow:0 8px 24px rgba(0,0,0,.18);font-size:17px}
+.tip strong{color:var(--green)}
+.tip .share{display:inline-block;width:22px;height:22px;vertical-align:-4px;margin:0 -2px 0 2px}
+.tip .x{position:absolute;top:4px;right:4px;width:48px;height:48px;border:0;background:none;font-size:26px;color:var(--muted);border-radius:50%}
+.tip .install{margin-top:10px;min-height:48px;padding:0 18px;border-radius:12px;border:0;background:var(--green);color:var(--gold-l);font-weight:700}
+
+/* ---------- sunday pills ---------- */
+.which{font-size:15px;text-transform:uppercase;letter-spacing:1.4px;color:var(--gold-d);font-weight:700;margin:0}
+.pills{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 8px;margin:10px -4px 0;scroll-snap-type:x proximity;
+  -webkit-overflow-scrolling:touch;scrollbar-width:none}
+.pills::-webkit-scrollbar{display:none}
+.pill{flex:0 0 auto;scroll-snap-align:start;min-height:52px;min-width:78px;padding:6px 14px;border-radius:999px;
+  border:2px solid var(--line);background:#fff;color:var(--green);font-weight:700;line-height:1.1;text-align:center}
+.pill small{display:block;font-weight:600;font-size:13px;color:var(--muted)}
+.pill[aria-pressed="true"]{background:var(--green);border-color:var(--green);color:var(--gold-l)}
+.pill[aria-pressed="true"] small{color:#E9DDB4}
+.pill .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--need);margin-left:5px;vertical-align:2px}
+.pill .dot.done{background:#3E8E62}
+.status{margin:6px 0 0;font-size:16px;color:var(--muted)}
+.status b{color:#7E5A0C}
+.status.ok b{color:#2F7A52}
+
+/* ---------- fields ---------- */
+.field{position:relative;margin:0 0 16px;padding-left:12px;border-left:4px solid transparent}
+.field:last-child{margin-bottom:2px}
+.field.need{border-left-color:var(--gold)}
+.field.filled{border-left-color:#3E8E62}
+.lab{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 6px;font-weight:700;color:var(--green);font-size:18px}
+.badge{font-size:13px;font-weight:700;letter-spacing:.4px;padding:2px 10px;border-radius:999px;white-space:nowrap}
+.need .badge{background:#FBEFCF;color:#7A5A12}
+.filled .badge{background:#DDEFE3;color:#22603F}
+.opt .badge{background:#EEE;color:#666}
+input[type=text],input[type=search],textarea{width:100%;min-height:52px;padding:12px 14px;border-radius:12px;border:2px solid var(--line);
+  background:#fff;font-size:18px;-webkit-appearance:none;appearance:none}
+input:focus,textarea:focus{border-color:var(--green);outline:none;box-shadow:0 0 0 3px rgba(201,165,76,.45)}
+.filled input{background:var(--green-soft);border-color:#B9D3C2}
+textarea{min-height:88px;resize:vertical}
+.wrap{position:relative}
+.clear{position:absolute;right:4px;top:2px;width:48px;height:48px;border:0;background:none;color:var(--muted);font-size:22px;border-radius:50%;display:none}
+.has-val .clear{display:block}
+.has-val input{padding-right:48px}
+.picked{width:100%;min-height:52px;display:flex;align-items:center;gap:10px;text-align:left;padding:10px 14px;border-radius:12px;
+  border:2px solid #B9D3C2;background:var(--green-soft);font-size:18px;line-height:1.25}
+.picked .pn{font-weight:700;color:var(--green);white-space:nowrap}
+.picked .pt{flex:1 1 auto}
+.picked .chg{font-size:15px;font-weight:700;color:var(--gold-d);white-space:nowrap}
+.hint{margin:6px 0 0;font-size:16px;color:var(--muted)}
+.hint.warn{color:var(--err);font-weight:600}
+.hint .recent{color:#8A5A00;font-weight:700}
+.sugg{list-style:none;margin:6px 0 0;padding:4px;background:#fff;border:2px solid var(--green);border-radius:12px;
+  max-height:300px;overflow-y:auto;box-shadow:0 10px 24px rgba(0,0,0,.15)}
+.sugg[hidden]{display:none}
+.sugg li{min-height:48px;display:flex;flex-direction:column;justify-content:center;padding:8px 12px;border-radius:9px;cursor:pointer}
+.sugg li+li{border-top:1px solid #EFEBDF}
+.sugg li[aria-selected="true"],.sugg li:hover{background:#F4EEDC}
+.sugg .num{font-weight:700;color:var(--green)}
+.sugg .src{font-size:14px;color:var(--muted)}
+.sugg mark{background:none;color:var(--gold-d);font-weight:700}
+
+/* ---------- chips ---------- */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{min-height:48px;padding:8px 16px;border-radius:999px;border:2px solid var(--line);background:#fff;font-weight:600;color:var(--ink);text-align:left;line-height:1.2}
+.chip[aria-pressed="true"]{background:var(--green);border-color:var(--green);color:#fff}
+.chip[aria-pressed="true"]::before{content:"✓ ";color:var(--gold-l)}
+.chip.other{border-style:dashed;color:var(--green)}
+.chips.big .chip{flex:1 1 100%;font-size:18px;padding:10px 16px}
+.other-in{margin-top:10px}
+
+/* ---------- special ---------- */
+details.card{padding:0}
+details.card>summary{list-style:none;min-height:60px;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 16px;cursor:pointer}
+details.card>summary::-webkit-details-marker{display:none}
+summary h2{margin:0}
+summary .chev{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:#F1EAD5;color:var(--green);transition:transform .2s;flex:0 0 auto}
+details[open] .chev{transform:rotate(180deg)}
+details .inner{padding:0 16px 18px}
+summary .peek{display:block;font-size:15px;color:var(--muted);font-family:"Source Sans 3",system-ui,sans-serif;font-weight:400}
+
+/* ---------- save bar ---------- */
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:5;padding:12px calc(var(--sar) + 14px) calc(var(--sab) + 12px) calc(var(--sal) + 14px);
+  background:linear-gradient(rgba(24,64,47,0),rgba(24,64,47,.92) 30%,var(--green-d))}
+.bar .in{max-width:560px;margin:0 auto}
+.save{width:100%;min-height:58px;border:0;border-radius:16px;font-size:21px;font-weight:700;letter-spacing:.3px;color:#2A2108;
+  background:linear-gradient(#E6C977,#C9A54C 55%,#B48E37);box-shadow:0 1px 0 rgba(255,255,255,.6) inset,0 8px 18px rgba(0,0,0,.3)}
+.save:active{transform:translateY(1px)}
+.save[disabled]{opacity:.7}
+.bar .msg{margin:0 0 8px;text-align:center;color:#F3E7C2;font-size:15px}
+
+/* ---------- states ---------- */
+.state{text-align:center;padding:34px 18px}
+.spinner{width:44px;height:44px;border-radius:50%;border:4px solid #E7DDBF;border-top-color:var(--green);margin:6px auto 14px;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.state h2{margin:0 0 6px}
+.btn{min-height:52px;padding:0 22px;border-radius:14px;border:2px solid var(--green);background:#fff;color:var(--green);font-weight:700;margin-top:12px}
+.btn.solid{background:var(--green);color:var(--gold-l)}
+.done-mark{width:84px;height:84px;margin:4px auto 12px;border-radius:50%;background:var(--green);display:grid;place-items:center;
+  box-shadow:0 0 0 6px #F1E6C4}
+.thanks{font-family:"Cormorant Garamond",Georgia,serif;font-size:31px;line-height:1.15;color:var(--green);margin:0 0 8px}
+.saved-list{text-align:left;margin:16px 0 0;padding:0;list-style:none;border-top:1px solid var(--line)}
+.saved-list li{padding:10px 2px;border-bottom:1px solid var(--line);font-size:17px}
+.saved-list li b{display:block;font-size:14px;letter-spacing:.8px;text-transform:uppercase;color:var(--gold-d)}
+.footer{color:#CFC39E;text-align:center;font-size:14px;margin:18px 0 0}
+[hidden]{display:none!important}
+@media (min-width:700px){ h1{font-size:48px} main{padding-top:26px} }
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.verse{margin:14px auto 14px;max-width:330px;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:19px;line-height:1.35;color:#f3ead2;text-align:center}
+.verse cite{display:block;margin-top:6px;font-style:normal;font-family:inherit;font-size:14px;letter-spacing:.06em;color:#C9A54C}
+</style>
+</head>
+<body>
+<header>
+  <svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><g fill="#E3C878"><ellipse cx="22" cy="40" rx="7" ry="5.2" transform="rotate(-22 22 40)"/><ellipse cx="44" cy="35" rx="7" ry="5.2" transform="rotate(-22 44 35)"/><rect x="27" y="12" width="2.6" height="28"/><rect x="49" y="7" width="2.6" height="28"/><polygon points="27,12 51.6,7 51.6,13.5 27,18.5"/></g><path d="M32 58c-7-5-16-6-24-4.5v-6M32 58c7-5 16-6 24-4.5v-6" fill="none" stroke="#E3C878" stroke-width="2.4" stroke-linecap="round"/></svg>
+  <h1>Sunday Music</h1>
+  <p class="ward">Farmington Bay 6th Ward</p>
+  <blockquote class="verse">“For my soul delighteth in the song of the heart; yea, the song of the righteous is a prayer unto me.”<cite>Doctrine and Covenants 25:12</cite></blockquote>
+</header>
+
+<main id="main">
+  <div class="tip" id="tip" role="note" hidden>
+    <button class="x" type="button" id="tipClose" aria-label="Dismiss tip">×</button>
+    <div id="tipIos"><strong>Make it an app:</strong> tap Share&nbsp;<svg class="share" viewBox="0 0 24 24" aria-label="Share icon" role="img"><path d="M12 3v12M7.5 7.5 12 3l4.5 4.5" fill="none" stroke="#1F6FE5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 10H6a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-9a1 1 0 0 0-1-1h-2" fill="none" stroke="#1F6FE5" stroke-width="2" stroke-linecap="round"/></svg>, then <strong>Add to Home Screen</strong>.</div>
+    <div id="tipAndroid" hidden><strong>Make it an app:</strong> add Sunday Music to your home screen.
+      <div><button class="install" type="button" id="installBtn">Install app</button></div></div>
+  </div>
+
+  <section class="card state" id="loading" aria-live="polite">
+    <div class="spinner" aria-hidden="true"></div>
+    <h2 class="serif">Opening the hymnbook…</h2>
+    <p class="sub">Getting this week's music.</p>
+  </section>
+
+  <section class="card state" id="error" hidden role="alert">
+    <h2 class="serif">We couldn't reach the music sheet</h2>
+    <p class="sub" id="errMsg">Check your connection and try again.</p>
+    <button class="btn solid" type="button" id="retry">Try again</button>
+  </section>
+
+  <form id="form" hidden novalidate autocomplete="off">
+    <section class="card" aria-labelledby="sunHead">
+      <p class="which">Which Sunday?</p>
+      <h2 id="sunHead">Music for Sunday</h2>
+      <div class="pills" id="pills" role="group" aria-label="Choose a Sunday"></div>
+      <p class="status" id="status" aria-live="polite"></p>
+    </section>
+
+    <section class="card" aria-labelledby="hymnsHead">
+      <h2 id="hymnsHead">Hymns</h2>
+      <p class="sub">Type a number or a few words, then tap the hymn.</p>
+      <div id="hymnFields"></div>
+    </section>
+
+    <section class="card" aria-labelledby="peopleHead">
+      <h2 id="peopleHead">Who's leading the music?</h2>
+      <div id="peopleFields"></div>
+    </section>
+
+    <details class="card" id="special">
+      <summary><span><h2>Special Music <span style="font-weight:600;font-size:20px;color:var(--muted)">(optional)</span></h2>
+        <span class="peek" id="specialPeek">Musical number, Pop-Up Choir, or Ward Choir</span></span>
+        <span class="chev" aria-hidden="true">▾</span></summary>
+      <div class="inner">
+        <div class="field opt" id="f-type">
+          <div class="lab" id="typeLab">Type</div>
+          <div class="chips big" id="typeChips" role="group" aria-labelledby="typeLab"></div>
+        </div>
+        <div class="field opt" id="f-special">
+          <label class="lab" for="in-special">Song</label>
+          <div class="wrap"><input type="text" id="in-special" maxlength="200" placeholder="Song title (pick or type)"
+             role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="sg-special" enterkeyhint="next">
+            <button type="button" class="clear" aria-label="Clear song">×</button></div>
+          <ul class="sugg" id="sg-special" role="listbox" hidden></ul>
+        </div>
+        <div class="field opt" id="f-leader">
+          <label class="lab" for="in-leader">Leader / performer</label>
+          <input type="text" id="in-leader" maxlength="200" placeholder="Who is leading or performing?" autocapitalize="words" enterkeyhint="next">
+        </div>
+      </div>
+    </details>
+
+    <section class="card">
+      <div class="field opt" id="f-notes">
+        <label class="lab" for="in-notes">Notes <span class="badge">optional</span></label>
+        <textarea id="in-notes" maxlength="200" placeholder="Want a hymn spotlighted? Say so here."></textarea>
+      </div>
+      <div class="field opt" id="f-name">
+        <label class="lab" for="in-name">Your name <span class="badge">optional</span></label>
+        <input type="text" id="in-name" maxlength="80" placeholder="So we know who to thank" autocapitalize="words" autocomplete="name">
+      </div>
+    </section>
+    <p class="footer">Only boxes you fill in are saved. Nothing already in the sheet is erased.</p>
+  </form>
+
+  <section class="card state" id="saved" hidden aria-live="polite">
+    <div class="done-mark" aria-hidden="true"><svg width="44" height="44" viewBox="0 0 24 24"><path d="M5 12.5 10 17 19 7.5" fill="none" stroke="#E3C878" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <p class="thanks" tabindex="-1" id="thanks">Saved — thank you! Your talent is the best part of Sunday.</p>
+    <p class="sub" id="savedFor"></p>
+    <ul class="saved-list" id="savedList"></ul>
+    <button class="btn solid" type="button" id="again">Back to the form</button>
+  </section>
+</main>
+
+<div class="bar" id="bar" hidden>
+  <div class="in">
+    <p class="msg" id="barMsg" aria-live="polite" hidden></p>
+    <button class="save" type="submit" form="form" id="saveBtn">Save</button>
+  </div>
+</div>
+
+<script>
+/* ======== Put the Apps Script web app URL here (ends in /exec) ======== */
+const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbzOx1DgzzR3NkeHp4YmCvcW-sm8WTR2dIOmDnSQDGxYiWFGHEqWJXmyK6vlSJdpsUSV/exec';
+/* ===================================================================== */
+
+(function () {
+  'use strict';
+  const $ = (s, el) => (el || document).querySelector(s);
+  const params = new URLSearchParams(location.search);
+  const isLocal = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+  // Local testing only: ?api=http://localhost:8001/exec
+  const API = (isLocal && params.get('api')) || WEBAPP_URL;
+  const DEMO = isLocal ? params.get('demo') : null;
+
+  const HYMN_FIELDS = [
+    { key: 'opening', label: 'Opening Hymn' },
+    { key: 'sacrament', label: 'Sacrament Hymn' },
+    { key: 'closing', label: 'Closing Hymn' }
+  ];
+  const REQUIRED = ['opening', 'sacrament', 'closing', 'chorister', 'organist'];
+  const NICE = { opening: 'Opening', sacrament: 'Sacrament', closing: 'Closing', chorister: 'Chorister', organist: 'Organist',
+    special: 'Special music', type: 'Type', leader: 'Leader', notes: 'Notes' };
+  const ORDER = ['opening', 'sacrament', 'special', 'type', 'leader', 'closing', 'chorister', 'organist', 'notes'];
+
+  let data = null, sunday = null, vals = {}, orig = {};
+  const hymnByDisplay = new Map();
+
+  /* ---------- helpers ---------- */
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const norm = (s) => String(s || '').toLowerCase().replace(/[‘’'"“”]/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
+  const isoToDate = (iso) => { const [y, m, d] = iso.split('-').map(Number); return new Date(y, m - 1, d); };
+  const fmtLong = (iso) => isoToDate(iso).toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
+  const fmtShort = (iso) => isoToDate(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  const todayIso = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; };
+  function show(id) { ['loading', 'error', 'form', 'saved'].forEach((x) => { $('#' + x).hidden = x !== id; }); $('#bar').hidden = id !== 'form'; }
+
+  /* ---------- network ---------- */
+  function jsonp(url) {
+    return new Promise((resolve, reject) => {
+      const cb = '__smf' + Date.now() + Math.floor(Math.random() * 1e4);
+      const s = document.createElement('script');
+      const t = setTimeout(() => { cleanup(); reject(new Error('timeout')); }, 20000);
+      function cleanup() { clearTimeout(t); delete window[cb]; s.remove(); }
+      window[cb] = (d) => { cleanup(); resolve(d); };
+      s.onerror = () => { cleanup(); reject(new Error('network')); };
+      s.src = url + (url.includes('?') ? '&' : '?') + 'callback=' + cb + '&t=' + Date.now();
+      document.head.appendChild(s);
+    });
+  }
+  async function getData() {
+    if (!API || API === 'PASTE_URL_HERE') throw new Error('This form is not connected to the music sheet yet.');
+    try {
+      const r = await fetch(API + (API.includes('?') ? '&' : '?') + 't=' + Date.now(), { cache: 'no-store', redirect: 'follow' });
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return await r.json();
+    } catch (e) {
+      return await jsonp(API); // CORS fallback
+    }
+  }
+  async function postData(payload) {
+    const body = JSON.stringify(payload);
+    try {
+      // text/plain = "simple" request: no CORS preflight, which Apps Script cannot answer.
+      const r = await fetch(API, { method: 'POST', body, headers: { 'Content-Type': 'text/plain;charset=utf-8' }, redirect: 'follow' });
+      return await r.json();
+    } catch (e) {
+      // Response unreadable (CORS). Send blind, then re-read the sheet to confirm.
+      await fetch(API, { method: 'POST', body, mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' } });
+      const fresh = await jsonp(API);
+      const row = (fresh.sundays || []).find((s) => s.date === payload.date);
+      const saved = row ? Object.keys(payload).filter((k) => k in row.values && row.values[k]) : [];
+      if (!row) throw e;
+      data = fresh;
+      return { ok: true, date: payload.date, saved, confirmedByReload: true };
+    }
+  }
+
+  /* ---------- hymn search ---------- */
+  function searchHymns(q, limit) {
+    const s = q.trim();
+    if (!s) return [];
+    const digits = s.replace(/^#/, '').match(/^\d+$/);
+    const hy = data.hymns;
+    if (digits) {
+      const n = digits[0];
+      const exact = hy.filter((h) => h.n === n);
+      const pre = hy.filter((h) => h.n !== n && h.n.startsWith(n));
+      return exact.concat(pre).slice(0, limit);
+    }
+    const toks = norm(s).split(' ').filter(Boolean);
+    const scored = [];
+    for (const h of hy) {
+      const t = norm(h.t);
+      if (toks.every((k) => t.includes(k))) scored.push([t.startsWith(toks.join(' ')) ? 0 : (' ' + t).includes(' ' + toks[0]) ? 1 : 2, h]);
+    }
+    scored.sort((a, b) => a[0] - b[0] || Number(a[1].n) - Number(b[1].n));
+    return scored.slice(0, limit).map((x) => x[1]);
+  }
+  function resolveHymn(text) {
+    const s = String(text || '').trim();
+    if (!s) return '';
+    if (hymnByDisplay.has(s)) return s;
+    const m = s.match(/^#?\s*(\d{1,4})\b/);
+    if (m) { const h = data.hymns.find((x) => x.n === String(Number(m[1]))); if (h) return h.d; }
+    const ns = norm(s);
+    const h = data.hymns.find((x) => norm(x.t) === ns || norm(x.d) === ns);
+    return h ? h.d : '';
+  }
+  function lastSungText(display, beforeIso) {
+    const dates = (data.history && data.history[display]) || [];
+    let best = '';
+    for (const d of dates) if (d < beforeIso && d > best) best = d;
+    return best;
+  }
+  function highlight(text, q) {
+    const toks = norm(q).split(' ').filter((t) => t && !/^\d+$/.test(t));
+    let out = esc(text);
+    toks.forEach((t) => { out = out.replace(new RegExp('(' + t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'ig'), '<mark>$1</mark>'); });
+    return out;
+  }
+
+  /* ---------- combobox ---------- */
+  function combobox(input, list, source, onPick) {
+    let items = [], active = -1;
+    function render() {
+      const q = input.value;
+      items = source(q);
+      active = -1;
+      if (!items.length || document.activeElement !== input) { close(); return; }
+      list.innerHTML = items.map((it, i) =>
+        `<li role="option" id="${list.id}-${i}" data-i="${i}"><span>${it.num ? `<span class="num">#${esc(it.num)}</span> ` : ''}${highlight(it.title, q)}</span>${it.src ? `<span class="src">${esc(it.src)}</span>` : ''}</li>`).join('');
+      list.hidden = false; input.setAttribute('aria-expanded', 'true');
+    }
+    function close() { list.hidden = true; input.setAttribute('aria-expanded', 'false'); input.removeAttribute('aria-activedescendant'); }
+    function pick(i) { const it = items[i]; if (!it) return; onPick(it.value); close(); }
+    input.addEventListener('input', render);
+    input.addEventListener('focus', () => setTimeout(() => {
+      const top = input.getBoundingClientRect().top;
+      if (top > window.innerHeight * 0.35) window.scrollTo({ top: window.scrollY + top - 90, behavior: 'smooth' });
+    }, 250));
+    input.addEventListener('focus', () => { if (input.value && !input.dataset.locked) render(); });
+    input.addEventListener('keydown', (e) => {
+      if (list.hidden) return;
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault(); active = (active + (e.key === 'ArrowDown' ? 1 : -1) + items.length) % items.length;
+        [...list.children].forEach((li, i) => li.setAttribute('aria-selected', i === active ? 'true' : 'false'));
+        input.setAttribute('aria-activedescendant', list.id + '-' + active);
+      } else if (e.key === 'Enter') { e.preventDefault(); pick(active < 0 ? 0 : active); }
+      else if (e.key === 'Escape') close();
+    });
+    // pointerdown so the pick happens before blur on iOS
+    list.addEventListener('pointerdown', (e) => { const li = e.target.closest('li'); if (li) { e.preventDefault(); pick(Number(li.dataset.i)); } });
+    input.addEventListener('blur', () => setTimeout(close, 120));
+    return { close };
+  }
+
+  /* ---------- build UI ---------- */
+  function buildHymnFields() {
+    const host = $('#hymnFields');
+    host.innerHTML = HYMN_FIELDS.map((f) => `
+      <div class="field" id="f-${f.key}">
+        <label class="lab" for="in-${f.key}"><span>${f.label}</span><span class="badge"></span></label>
+        <div class="wrap"><input type="search" id="in-${f.key}" maxlength="200" placeholder="Number or title, e.g. 129 or peace"
+          role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="sg-${f.key}" aria-describedby="ls-${f.key}"
+          inputmode="search" enterkeyhint="search" autocapitalize="off" spellcheck="false">
+          <button type="button" class="clear" aria-label="Clear ${f.label}">×</button></div>
+        <button type="button" class="picked" id="pk-${f.key}" hidden aria-label="${f.label}: change"><span class="pn"></span><span class="pt"></span><span class="chg">Change</span></button>
+        <ul class="sugg" id="sg-${f.key}" role="listbox" aria-label="${f.label} suggestions" hidden></ul>
+        <p class="hint" id="ls-${f.key}"></p>
+      </div>`).join('');
+    HYMN_FIELDS.forEach((f) => {
+      const input = $('#in-' + f.key);
+      combobox(input, $('#sg-' + f.key),
+        (q) => (resolveHymn(q) === q ? [] : searchHymns(q, 7).map((h) => ({ num: h.n, title: h.t, value: h.d }))),
+        (v) => { input.value = v; vals[f.key] = v; refreshField(f.key); input.blur(); });
+      input.addEventListener('input', () => { vals[f.key] = input.value; refreshField(f.key, true); });
+      input.addEventListener('blur', () => {
+        const r = resolveHymn(input.value);
+        if (r && r !== input.value) { input.value = r; vals[f.key] = r; }
+        refreshField(f.key);
+      });
+      wireClear(f.key);
+      $('#pk-' + f.key).addEventListener('click', () => {
+        $('#pk-' + f.key).hidden = true; $('.wrap', $('#f-' + f.key)).hidden = false; input.focus(); input.select();
+      });
+    });
+  }
+  function wireClear(key) {
+    const field = $('#f-' + key), btn = $('.clear', field), input = $('#in-' + key);
+    if (!btn) return;
+    btn.addEventListener('click', () => { input.value = ''; vals[key] = ''; refreshField(key, true); input.focus(); });
+  }
+
+  function buildPeople() {
+    const host = $('#peopleFields');
+    host.innerHTML = ['chorister', 'organist'].map((k) => `
+      <div class="field" id="f-${k}">
+        <div class="lab" id="lab-${k}"><span>${NICE[k]}</span><span class="badge"></span></div>
+        <div class="chips" id="chips-${k}" role="group" aria-labelledby="lab-${k}"></div>
+        <div class="other-in" id="other-${k}" hidden>
+          <label class="sr-only" for="in-${k}">${NICE[k]} name</label>
+          <input type="text" id="in-${k}" maxlength="200" placeholder="Type a name" autocapitalize="words" enterkeyhint="done">
+        </div>
+      </div>`).join('');
+    ['chorister', 'organist'].forEach((k) => {
+      $('#in-' + k).addEventListener('input', (e) => { vals[k] = e.target.value; refreshField(k, true); });
+    });
+  }
+  function renderChips(k) {
+    const list = (k === 'chorister' ? data.choristers : data.organists).slice();
+    const cur = (vals[k] || '').trim();
+    const otherOpen = !$('#other-' + k).hidden;
+    if (cur && !list.some((n) => n.toLowerCase() === cur.toLowerCase()) && !otherOpen) list.push(cur);
+    const host = $('#chips-' + k);
+    host.innerHTML = list.map((n) => `<button type="button" class="chip" aria-pressed="${!otherOpen && n.toLowerCase() === cur.toLowerCase()}" data-v="${esc(n)}">${esc(n)}</button>`).join('') +
+      `<button type="button" class="chip other" aria-pressed="${otherOpen}" data-other="1">Other…</button>`;
+    host.querySelectorAll('.chip').forEach((b) => b.addEventListener('click', () => {
+      if (b.dataset.other) {
+        $('#other-' + k).hidden = false; const inp = $('#in-' + k);
+        inp.value = list.some((n) => n === cur) ? '' : cur; vals[k] = inp.value; renderChips(k); refreshField(k); inp.focus();
+      } else {
+        $('#other-' + k).hidden = true;
+        vals[k] = (vals[k] === b.dataset.v && !orig[k]) ? '' : b.dataset.v; // tap again to unselect (unsaved only)
+        renderChips(k); refreshField(k);
+      }
+    }));
+  }
+
+  function buildSpecial() {
+    const host = $('#typeChips');
+    host.innerHTML = (data.types || ['Special Musical Number', 'Pop-Up Choir', 'Ward Choir'])
+      .map((t) => `<button type="button" class="chip" data-v="${esc(t)}" aria-pressed="false">${esc(t)}</button>`).join('');
+    host.querySelectorAll('.chip').forEach((b) => b.addEventListener('click', () => {
+      vals.type = vals.type === b.dataset.v ? '' : b.dataset.v; renderType(); refreshField('type'); updatePeek();
+    }));
+    const inp = $('#in-special');
+    combobox(inp, $('#sg-special'), (q) => {
+      if (!q.trim()) return [];
+      const nq = norm(q), toks = nq.split(' ');
+      const pop = data.popUpSongs.filter((p) => toks.every((t) => norm(p.title + ' ' + p.number).includes(t)))
+        .map((p) => ({ title: p.title, src: p.source + (p.number ? ' #' + p.number : ''), value: p.title }));
+      const hy = searchHymns(q, 5).filter((h) => !pop.some((p) => norm(p.title) === norm(h.t)))
+        .map((h) => ({ num: h.n, title: h.t, src: 'Hymn', value: h.d }));
+      return pop.slice(0, 5).concat(hy).slice(0, 7);
+    }, (v) => { inp.value = v; vals.special = v; refreshField('special'); updatePeek(); inp.blur(); });
+    inp.addEventListener('input', () => { vals.special = inp.value; refreshField('special', true); updatePeek(); });
+    wireClear('special');
+    $('#in-leader').addEventListener('input', (e) => { vals.leader = e.target.value; updatePeek(); });
+    $('#in-notes').addEventListener('input', (e) => { vals.notes = e.target.value; });
+  }
+  function renderType() { $('#typeChips').querySelectorAll('.chip').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.v === vals.type))); }
+  function updatePeek() {
+    const bits = [vals.type, vals.special, vals.leader].filter((x) => x && x.trim());
+    $('#specialPeek').textContent = bits.length ? bits.join(' · ') : 'Musical number, Pop-Up Choir, or Ward Choir';
+  }
+
+  /* ---------- state per field ---------- */
+  function refreshField(key, typing) {
+    const field = $('#f-' + key); if (!field) return;
+    const v = (vals[key] || '').trim();
+    const isHymn = HYMN_FIELDS.some((f) => f.key === key);
+    const valid = isHymn ? !!(v && hymnByDisplay.has(v)) : !!v;
+    const wrap = $('.wrap', field); if (wrap) wrap.classList.toggle('has-val', !!v);
+    if (REQUIRED.includes(key)) {
+      field.classList.toggle('filled', valid); field.classList.toggle('need', !valid);
+      $('.badge', field).textContent = valid ? 'Filled ✓' : 'Still needed';
+    }
+    if (isHymn) {
+      const pk = $('#pk-' + key), inp = $('#in-' + key);
+      const showPk = valid && document.activeElement !== inp;
+      pk.hidden = !showPk; wrap.hidden = showPk;
+      if (showPk) { const h = hymnByDisplay.get(v); $('.pn', pk).textContent = '#' + h.n; $('.pt', pk).textContent = h.t;
+        pk.setAttribute('aria-label', NICE[key] + ' hymn: #' + h.n + ' ' + h.t + '. Tap to change.'); }
+      const hint = $('#ls-' + key);
+      hint.classList.remove('warn');
+      if (valid) {
+        let ls = '';
+        if (v === orig[key] && sunday.lastSung && sunday.lastSung[key] && sunday.lastSung[key] !== '—') ls = sunday.lastSung[key];
+        else { const d = lastSungText(v, sunday.date); if (d) ls = fmtShort(d); }
+        if (ls) {
+          const days = (isoToDate(sunday.date) - new Date(ls)) / 864e5;
+          hint.innerHTML = 'Last sung: ' + esc(ls) + (days >= 0 && days < 120 ? ' · <span class="recent">sung recently</span>' : '');
+        } else hint.textContent = 'Last sung: not in our records';
+      } else if (v && !typing) { hint.textContent = 'Tap a hymn from the list so it matches the hymnbook.'; hint.classList.add('warn'); }
+      else hint.textContent = '';
+    }
+    updateStatus();
+  }
+  function updateStatus() {
+    const missing = REQUIRED.filter((k) => { const v = (vals[k] || '').trim(); return HYMN_FIELDS.some((f) => f.key === k) ? !hymnByDisplay.has(v) : !v; });
+    const st = $('#status');
+    st.classList.toggle('ok', !missing.length);
+    st.innerHTML = missing.length ? `Still needed: <b>${missing.map((k) => NICE[k]).join(', ')}</b>` : '<b>All set ✓</b> Add special music or notes if you like.';
+  }
+
+  /* ---------- sundays ---------- */
+  function defaultSunday() {
+    const t = todayIso();
+    const up = data.sundays.filter((s) => s.date > t); // strictly after today: on a Sunday, pick next week
+    return up[0] || data.sundays[data.sundays.length - 1];
+  }
+  function filledCount(s) { return REQUIRED.filter((k) => s.values[k]).length; }
+  function renderPills() {
+    const host = $('#pills');
+    host.innerHTML = data.sundays.map((s) => {
+      const d = isoToDate(s.date), done = filledCount(s) === REQUIRED.length;
+      return `<button type="button" class="pill" data-d="${s.date}" aria-pressed="${s.date === sunday.date}"
+        aria-label="${esc(s.label)}${s.date < todayIso() ? ' (past)' : ''}${done ? ', complete' : ', needs music'}">
+        ${d.toLocaleDateString('en-US', { month: 'short' })} ${d.getDate()}<span class="dot ${done ? 'done' : ''}" aria-hidden="true"></span>
+        <small>${s.date < todayIso() ? 'last week' : s.date === todayIso() ? 'today' : d.getFullYear() !== new Date().getFullYear() ? d.getFullYear() : 'Sunday'}</small></button>`;
+    }).join('');
+    host.querySelectorAll('.pill').forEach((b) => b.addEventListener('click', () => selectSunday(b.dataset.d)));
+    const cur = host.querySelector('[aria-pressed="true"]');
+    if (cur) host.scrollLeft = Math.max(0, cur.offsetLeft - 60);
+  }
+  function selectSunday(iso) {
+    sunday = data.sundays.find((s) => s.date === iso) || defaultSunday();
+    orig = Object.assign({}, sunday.values); vals = Object.assign({}, sunday.values);
+    $('#sunHead').textContent = 'Music for Sunday, ' + fmtLong(sunday.date);
+    HYMN_FIELDS.forEach((f) => { $('#in-' + f.key).value = vals[f.key] || ''; });
+    ['chorister', 'organist'].forEach((k) => {
+      $('#other-' + k).hidden = true; $('#in-' + k).value = vals[k] || ''; renderChips(k);
+    });
+    $('#in-special').value = vals.special || ''; $('#in-leader').value = vals.leader || ''; $('#in-notes').value = vals.notes || '';
+    renderType(); updatePeek();
+    $('#special').open = !!(vals.special || vals.type || vals.leader);
+    ['opening', 'sacrament', 'closing', 'chorister', 'organist', 'special'].forEach((k) => refreshField(k));
+    renderPills(); setBarMsg('');
+  }
+
+  /* ---------- save ---------- */
+  function setBarMsg(t) { const m = $('#barMsg'); m.textContent = t; m.hidden = !t; }
+  async function save(e) {
+    e && e.preventDefault();
+    // resolve any typed hymn numbers first
+    for (const f of HYMN_FIELDS) {
+      const raw = (vals[f.key] || '').trim();
+      if (!raw) continue;
+      const r = resolveHymn(raw);
+      if (!r) { refreshField(f.key); setBarMsg(NICE[f.key] + ': tap a hymn from the list.'); $('#in-' + f.key).focus(); return; }
+      vals[f.key] = r; $('#in-' + f.key).value = r;
+    }
+    const payload = { date: sunday.date };
+    let changed = 0;
+    ORDER.forEach((k) => {
+      const v = (vals[k] || '').trim().slice(0, 200);
+      if (v && v !== (orig[k] || '').trim()) { payload[k] = v; changed++; }
+    });
+    const name = $('#in-name').value.trim();
+    if (name) { payload.name = name; try { localStorage.setItem('smf_name', name); } catch (x) {} }
+    if (!changed) { setBarMsg('Nothing new to save — everything here is already in the sheet.'); return; }
+    const btn = $('#saveBtn'); btn.disabled = true; btn.textContent = 'Saving…'; setBarMsg('');
+    try {
+      const res = await postData(payload);
+      if (!res || !res.ok) throw new Error((res && res.error) || 'Save failed');
+      showSaved(res, payload);
+      // refresh data in the background so the form shows the new values
+      getData().then((d) => { if (d && d.ok) indexData(d); }).catch(() => {});
+    } catch (err) {
+      setBarMsg('Couldn\u2019t save: ' + (err.message || 'network problem') + '. Please try again.');
+    } finally { btn.disabled = false; btn.textContent = 'Save'; }
+  }
+  function showSaved(res, payload) {
+    const saved = res.saved || [];
+    $('#savedFor').textContent = 'Sunday, ' + fmtLong(payload.date) + (saved.length ? '' : ' — it was already up to date.');
+    const skipped = (res.skipped || []).map((s) => `<li><b>${esc(NICE[s.field] || s.field)} — not saved</b>${esc(s.reason)}</li>`).join('');
+    $('#savedList').innerHTML = saved.map((k) => `<li><b>${esc(NICE[k] || k)}</b>${esc(payload[k] || '')}</li>`).join('') + skipped;
+    show('saved'); window.scrollTo(0, 0); $('#thanks').focus({ preventScroll: true });
+  }
+
+  /* ---------- load ---------- */
+  function indexData(d) {
+    data = d; hymnByDisplay.clear(); d.hymns.forEach((h) => hymnByDisplay.set(h.d, h));
+  }
+  async function load() {
+    show('loading');
+    try {
+      const d = await getData();
+      if (!d || !d.ok) throw new Error((d && d.error) || 'Unexpected reply');
+      if (!d.sundays || !d.sundays.length) throw new Error('No Sundays found in Weekly Music.');
+      indexData(d);
+      if (!$('#hymnFields').children.length) { buildHymnFields(); buildPeople(); buildSpecial(); }
+      try { $('#in-name').value = localStorage.getItem('smf_name') || ''; } catch (x) {}
+      selectSunday(defaultSunday().date);
+      show('form');
+      runDemo();
+    } catch (err) {
+      $('#errMsg').textContent = (err && err.message && !/fetch|network|timeout/i.test(err.message)) ? err.message : 'Check your connection and try again.';
+      show('error');
+    }
+  }
+  $('#form').addEventListener('submit', save);
+  $('#retry').addEventListener('click', load);
+  $('#again').addEventListener('click', () => { selectSunday(sunday.date); show('form'); window.scrollTo(0, 0); });
+
+  /* ---------- install tip ---------- */
+  const standalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+  const ua = navigator.userAgent;
+  const isIOS = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+  const isIOSSafari = isIOS && /Safari/.test(ua) && !/CriOS|FxiOS|EdgiOS|OPiOS|GSA\//.test(ua);
+  let dismissed = false; try { dismissed = localStorage.getItem('smf_tip') === '1'; } catch (x) {}
+  if (!standalone && !dismissed && (isIOSSafari || DEMO === 'tip') && DEMO !== 'clean') $('#tip').hidden = false;
+  let deferredPrompt = null;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault(); deferredPrompt = e;
+    if (!standalone && !dismissed && !isIOS && DEMO !== 'clean') { $('#tipIos').hidden = true; $('#tipAndroid').hidden = false; $('#tip').hidden = false; }
+  });
+  $('#installBtn').addEventListener('click', async () => { if (deferredPrompt) { deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt = null; } $('#tip').hidden = true; });
+  $('#tipClose').addEventListener('click', () => { $('#tip').hidden = true; try { localStorage.setItem('smf_tip', '1'); } catch (x) {} });
+  window.addEventListener('appinstalled', () => { $('#tip').hidden = true; });
+
+  if ('serviceWorker' in navigator && (location.protocol === 'https:' || isLocal) && !DEMO) {
+    window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+  }
+
+  function runDemo() {} // ?demo=clean hides the install tip, ?demo=tip forces it (localhost only)
+
+  load();
+})();
+</script>
+</body>
+</html>
