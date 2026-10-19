@@ -59,6 +59,11 @@ main{max-width:560px;margin:0 auto;padding:18px calc(var(--sar) + 14px) calc(var
 .card .sub{margin:0 0 12px;color:var(--muted);font-size:16px}
 
 /* ---------- install tip ---------- */
+.tip .tip-h{font-weight:800;color:var(--green);font-size:19px;margin-bottom:2px}
+.tip .tip-sub{color:var(--muted);font-size:15px;margin-bottom:8px}
+.tip .steps{margin:0;padding-left:22px;line-height:1.45}
+.tip .steps li{margin:6px 0}
+.tip .tip-arrow{margin-top:10px;text-align:center;font-weight:700;color:var(--green);font-size:15px}
 .tip{position:relative;background:linear-gradient(#FFFDF6,#FBF4E0);border:2px solid var(--gold);border-radius:var(--radius);
   padding:14px 52px 14px 16px;margin:0 0 14px;box-shadow:0 8px 24px rgba(0,0,0,.18);font-size:17px}
 .tip strong{color:var(--green)}
@@ -179,9 +184,16 @@ summary .peek{display:block;font-size:15px;color:var(--muted);font-family:"Sourc
 
 <main id="main">
   <div class="tip" id="tip" role="note" hidden>
-    <button class="x" type="button" id="tipClose" aria-label="Dismiss tip">×</button>
-    <div id="tipIos"><strong>Make it an app:</strong> tap Share&nbsp;<svg class="share" viewBox="0 0 24 24" aria-label="Share icon" role="img"><path d="M12 3v12M7.5 7.5 12 3l4.5 4.5" fill="none" stroke="#1F6FE5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 10H6a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-9a1 1 0 0 0-1-1h-2" fill="none" stroke="#1F6FE5" stroke-width="2" stroke-linecap="round"/></svg>, then <strong>Add to Home Screen</strong>.</div>
-    <div id="tipOther" hidden><strong>Make it an app:</strong> open this page in <strong>Safari</strong> first (copy the link, paste it in Safari), then tap Share and <strong>Add to Home Screen</strong>.</div>
+    <button class="x" type="button" id="tipClose" aria-label="Hide setup steps">×</button>
+    <div id="tipIos"><div class="tip-h">Put this on your home screen</div><div class="tip-sub">One-time setup, about 20 seconds. These are steps to follow, not buttons.</div>
+      <ol class="steps"><li>Tap the <strong>Share</strong> button <svg class="share" viewBox="0 0 24 24" aria-label="Share icon" role="img"><path d="M12 3v12M7.5 7.5 12 3l4.5 4.5" fill="none" stroke="#1F6FE5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 10H6a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-9a1 1 0 0 0-1-1h-2" fill="none" stroke="#1F6FE5" stroke-width="2" stroke-linecap="round"/></svg> in Safari's bar at the <strong>bottom</strong> of your screen (on iPad, top right). Don't see it? Tap <strong>•••</strong> first.</li>
+      <li>Scroll down and tap <strong>Add to Home Screen</strong>.</li>
+      <li>Tap <strong>Add</strong> in the top right corner.</li>
+      <li>Close Safari. From now on, just tap the green <strong>Sunday Music</strong> icon.</li></ol></div>
+    <div id="tipOther" hidden><div class="tip-h">Put this on your home screen</div><div class="tip-sub">This only works in Safari.</div>
+      <ol class="steps"><li>Open the Messages text and <strong>press and hold</strong> the link.</li>
+      <li>Tap <strong>Open in Safari</strong> (or copy the link and paste it into Safari).</li>
+      <li>In Safari, tap <strong>Share</strong>, then <strong>Add to Home Screen</strong>, then <strong>Add</strong>.</li></ol></div>
     <div id="tipAndroid" hidden><strong>Make it an app:</strong> add Sunday Music to your home screen.
       <div><button class="install" type="button" id="installBtn">Install app</button></div></div>
   </div>
